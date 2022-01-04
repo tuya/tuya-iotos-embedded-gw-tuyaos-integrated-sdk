@@ -23,9 +23,9 @@ SDK 包含但不限于以下的组件：
 
 ## 获取支持
 
-Tuya IoT Developer Platform: https://developer.tuya.com/en/
-Tuya Smart Help Center: https://support.tuya.com/en/help
-Technical Support Console: https://service.console.tuya.com/
+涂鸦 IoT 开发者平台：https://developer.tuya.com/cn  
+涂鸦帮助中心：https://support.tuya.com/zh/help  
+涂鸦技术工单平台：https://service.console.tuya.com  
 
 ## License
 

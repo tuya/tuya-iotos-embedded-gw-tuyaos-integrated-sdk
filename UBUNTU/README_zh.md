@@ -1,10 +1,3 @@
-author: Tuya
-summary: Ubuntu上运行TuyaOS SDK 
-id: demo_tuyaos_quickstart 
-categories: quickstart,markdown
-environments: Web
-status: Published
-
 ## 概述
 
 本示例演示了虚拟子设备接入涂鸦云的完整流程，给开发者接入子设备提供参考。同时，开发者也可以运行本示例快速体验。
