@@ -1,30 +1,35 @@
-# TuyaOS GW integrated SDK
+# TuyaOS All-in-One Gateway SDK
 
-English | [中文版](./README_zh.md)
+[English](./README.md) | 中文版
 
 ## Overview
 
-TuyaOS integrated SDK is designed in hierarchical and modular. In addition to providing the basic ability to connect to Tuya Cloud, it also provides services for infrared, central control, home security, integrated Tuya Zigbee module and Tuya Bluetooth module, routers and repeaters and so on. Developer can use those service as needed to achieve different smart gateway product quickly.
+With a component-based plug-and-play architecture, the TuyaOS all-in-one SDK helps you build an IoT-enabled gateway in a quick and easy way. A variety of component libraries allows you to flexibly implement and adjust your service offerings as the market needs change over time.
 
-The SDK includes but is not limited to the following components:
+This SDK enables you to achieve cloud connection and integrate with gateway capabilities with low code development. You can enrich your gateway product with a host of services such as infrared, control hub, Zigbee and Bluetooth Low Energy connectivity, router, relay, and Pegasus pairing.
 
-- Zigbee component, which can work with Tuya Zigbee module, and interoperate with all Zigbee device in Tuya ecosystem.  It also provide API for integrating non Tuya ecosystem Zigbee device to Tuya Cloud.
-- Bluetooth component, which can work with Tuya Bluetooth module, and interoperate with all Bluetooth device in Tuya ecosystem. 
+The components in the SDK include but are not limited to:
 
-- Router component, which provides router API for developing router product. 
-- Basic components, which provides the basic functionality of smart gateway, such as engineering mode, fault replacement, home security, local linkage, multiple gateway linkage in LAN, and so on. It offers API for device connectivity and management, that supports connectivity protocols including Zigbee, Bluetooth mesh, 433 and 868 MHz, Z-Wave, etc.
+- The Zigbee component that helps you enable Zigbee connectivity. It must be used in tandem with Tuya's gateway-specific Zigbee module that acts as a Zigbee network coordinator. This SDK also allows you to connect proprietary Zigbee devices to the gateway so that they can interact with `Powered by Tuya` ecosystem.
+- The Bluetooth component that helps you enable Bluetooth-based device pairing as well as interconnection with `Powered by Tuya` ecosystem. It must be used in tandem with Tuya's gateway-specific Bluetooth module.
+- The router component that helps you quickly develop a router product.
+- The basic component that helps you develop gateway products with the support for RS-433, RS-485, and Z-Wave and a suite of features like engineering mode, failover, security, local linkage, cross-gateway LAN, and more.
 
-## Get Started
+## Quick start
 
-[SDK for WRG2-IPEX](./WRG2-IPEX/README_zh.md)
+- [SDK for WRG2-IPEX](./WRG2-IPEX/README_zh.md)
 
-[SDK for Ubuntu](./UBUNTU/README_zh.md)
+- [SDK for Ubuntu](./UBUNTU/README_zh.md)
 
-## Support
 
-Tuya IoT Developer Platform: https://developer.tuya.com/en/ <br>
-Tuya Smart Help Center: https://support.tuya.com/en/help <br>
-Technical Support Console: https://service.console.tuya.com/
+
+## Technical support
+
+You can get support from Tuya with the following methods:
+
++ [Tuya Developer Platform](https://developer.tuya.com/en/)
++ [Help Center](https://support.tuya.com/en/help)
++ [Service & Support](https://service.console.tuya.com)
 
 ## License
 
