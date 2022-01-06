@@ -1,6 +1,6 @@
 # TuyaOS All-in-One Gateway SDK
 
-[English](./README.md) | 中文版
+[English](./README.md) | [中文](./README_zh.md)
 
 ## Overview
 
