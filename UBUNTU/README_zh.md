@@ -4,60 +4,6 @@
 
 本文档对 **tuyaos_demo_dev** 示例进行了简要说明，将会介绍如何获取开发包、编译和运行。
 
-## 创建产品  
-
-在涂鸦 IoT 平台创建网关产品是开发的第一步，是其他步骤的前置条件。本小节将会演示在涂鸦 IoT 平台上创建一个网关产品。
-
-本小节我们将会在涂鸦 IoT 平台上创建一个网关产品。
-
-1. 登录 [涂鸦 IoT 平台](https://iot.tuya.com/pmg/solution)。未注册的用户，请先注册账户。
-
-2. 在平台首页，单击 **创建产品**。
-
-   ![](https://airtake-public-data-1254153901.cos.ap-shanghai.myqcloud.com/goat/20201109/3df3f0e80fbb4eb0ba5968b18d35f0ec.png)
-
-3. 在产品品类中，单击 **网关中控** 品类，然后选择 **网关**。
-
-   ![](https://images.tuyacn.com/fe-static/docs/img/4df07424-3c3f-411f-b7cb-c41065d04ab8.jpg)
-
-4. 智能化方式选择 **产品开发**。  
-
-   ![](https://images.tuyacn.com/fe-static/docs/img/a9187b07-e219-418f-bc74-aa24f4667b6e.jpg)
-
-5. 产品方案选 **联网SDK**。
-
-   ![](https://images.tuyacn.com/fe-static/docs/img/a8d5ac49-a802-442d-a423-a1ce3e63d802.jpg)
-
-6. 完善产品信息，填写产品名称和产品型号后，单击 **创建产品**。
-
-   ![](https://images.tuyacn.com/fe-static/docs/img/d53224ff-1b14-41b9-8e1b-99918de9090c.png)
-
-7. 创建产品完成后，会弹框让我们添加标准功能点，后面步骤会介绍如何添加功能点，所以这里直接单击 **确定** 进入下一步。
-
-   ![](https://images.tuyacn.com/fe-static/docs/img/a51cf25f-5e74-4b1a-8c0a-5211193ff16e.jpg)
-
-8. 进入产品主页，我们将会看到涂鸦平台已经给产品分配了一个 PID，也称产品 ID。  
-
-   ![](https://images.tuyacn.com/fe-static/docs/img/a348be85-d932-4588-a7fb-4765582d2e96.jpg)
-
-9. 单击 **功能定义** 选项卡，在 **功能定义** 页面可以给产品添加标准功能或自定义功能，可以按需添加。关于功能点说明，请参考 [标准功能说明](https://developer.tuya.com/cn/docs/iot/standard-functions?id=K914jp5h3j6s8) 和 [自定义功能](https://developer.tuya.com/cn/docs/iot/custom-functions?id=K937y38137c64)。
-
-   ![](https://images.tuyacn.com/fe-static/docs/img/ab3fff5a-4f95-4bc4-9c68-7e28d54f4e2f.jpg)
-
-10. 单击 **设备面板** 选项卡，在 **设备面板** 页面选择 APP 面板，单击 **公版面板**，挑选合适的面板，单击 **使用此模板**。关于 APP 面板更多说明，请参考 [配置 App 界面](https://developer.tuya.com/cn/docs/iot/app-ui-design?id=K914jpghswnq0)。
-
-    ![](https://images.tuyacn.com/fe-static/docs/img/80560bb4-990f-4d5b-85b5-311c24c535c5.jpg)
-
-11. 单击 **硬件开发** 选项卡，在 **硬件开发** 页面选择云端接入硬件和获取授权码。<br>
-
-    **云端接入硬件** 选择 **通用CPU**，接着单击 **免费领取2个激活码**，下单后即可免费领取2个激活码用来调试。<br>
-
-    > 注意，激活码必需是一机一对，不能重复使用。免费领取的激活码仅用于调试目的，正式产品的激活码需要联系涂鸦商务购买。
-    
-    ![](https://images.tuyacn.com/fe-static/docs/img/f3c2d7eb-4c0d-4c50-8ef1-3590721458d2.jpg)
-
-12. 到这里，网关产品已创建完成。
-
 ## 获取开发包 
 
 为了简化嵌入式开发流程，屏蔽开发环境的差异，涂鸦嵌入式部门开发了一个名为 **Tuya Wind IDE** 的 VSCode 插件，SDK 获取、开发、编译以及烧录都能在 Tuya Wind IDE 上完成。
@@ -70,9 +16,9 @@
 
    ![img](https://images.tuyacn.com/fe-static/docs/img/4139c485-beda-4664-86d2-3aee636745b2.jpg)
 
-3. 创建框架时，会弹出项目向导。
+3. 创建框架时，会弹出项目向导，输入信息并选择 SDK 产物包，单击 **完成**。
 
-   ![img](https://images.tuyacn.com/fe-static/docs/img/f658fefa-0d80-4a2f-ab08-f870d64c75b6.jpg)
+   > 创建开发框架需要一定的时间，请耐心等待完成。
 
    **名称(Name)**：工程名称，自定义字符串。<br>
 
@@ -84,21 +30,21 @@
 
    **位置(Location)**：可以选择默认位置，也可以选择自定义位置。<br>
 
-   最后，单击 **完成**。  
+   ![img](https://images.tuyacn.com/fe-static/docs/img/f658fefa-0d80-4a2f-ab08-f870d64c75b6.jpg)  
 
-4. 创建开发框架需要一定的时间，耐心等待完成。SDK 开发包获取成功后，会自动在 VSCode 打开工程目录。
+4. SDK 开发包获取成功后，会自动在 VSCode 打开项目工程。
 
    ![img](https://images.tuyacn.com/fe-static/docs/img/01b1ecde-803d-466d-890a-d63bb1e93788.jpg)  
 
 ## 目录结构
 
-本示例工程位于 software -> TuyaOS -> apps 目录下，**tuyaos_demo_dev** 的目录结构如下：
+本示例的代码工程位于 software -> TuyaOS -> apps -> tuyaos_demo_dev，其目录结构如下：
 
 ```  
 .
-├── config.json  # 配置文件
+├── config.json  # 配置文件，详见“配置文件”章节说明。
 ├── doc          # 文档
-├── hal          # 适配层代码实现
+├── hal          # Ubuntu 平台的适配层代码
 ├── include      # 示例头文件
 ├── LICENSE
 ├── Makefile     # Makefile
@@ -110,7 +56,7 @@
 
 为了让开发者快速体验，本示例工程把配置相关独立放到配置文件中，配置文件为 **config.json**，开发者只需要修改配置文件参数，就能把程序运行起来体验。
 
-需要修改的参数是 **pid**，**uuid**，**authkey**，修改成在涂鸦 IoT 平台上创建的网关产品对应的 PID，详见 [创建产品](#创建产品)。
+主要修改的参数是 **pid**，**uuid**，**authkey**，把它们修改成您在涂鸦 IoT 平台上创建的网关产品的 PID 以及授权码，详见 [创建产品](#创建产品)。
 
 配置文件 **config.json** 基本格式为：
 
@@ -134,7 +80,7 @@
 
 | 字段         | 必须 | 说明                                                         |
 | ------------ | ---- | ------------------------------------------------------------ |
-| PID          | 是   | 网关的产品 ID                                                |
+| pid          | 是   | 网关的产品 ID                                                |
 | uuid         | 是   | 授权码                                                       |
 | authkey      | 是   | 授权码                                                       |
 | ap_ssid      | 否   | AP配网SSID，未指定则使用默认SmartLife-<WLAN MAC 后四位>      |
@@ -145,11 +91,11 @@
 
 ## 适配
 
-TuyaOS SDK 是跨平台的设计，定义了一套标准的 TuyaOS Kernel Layer 屏蔽硬件差异，所以要求开发者适配自己的硬件平台。
+TuyaOS SDK 是跨平台的设计，定义了一套标准的 TuyaOS Kernel Layer 屏蔽硬件差异，开发者根据自己的系统进行适配。
 
-本示例提供了 Ubuntu 平台的适配代码，开发者无需进行适配就能使用，只需要调整有线网络接口。
+本示例已经提供了 Ubuntu 平台的适配代码，开发者只需要调整有线网络接口，即可在 Ubuntu 平台上运行。
 
-打开 tuyaos_demo_dev -> hal -> tkl_wired -> tkl_wired.c 文件，把 **WIRED_NAME** 修改成自己系统上的网络接口。
+打开 tuyaos_demo_dev -> hal -> tkl_wired -> tkl_wired.c 文件，把 **WIRED_NAME** 修改成您系统上的网络接口。
 
 ![img](https://images.tuyacn.com/fe-static/docs/img/5254f1f0-59aa-4d1c-a2c3-b43d30ddd2d4.jpg)
 
@@ -171,13 +117,15 @@ TuyaOS SDK 是跨平台的设计，定义了一套标准的 TuyaOS Kernel Layer 
 
 ## 运行
 
-上一小节程序已经编译完成，接下来在 Ubuntu 平台上运行它，把 Ubuntu 作为网关设备接入到涂鸦平台。
+[编译](#编译) 完成，接下来我们把它运行起来，把 Ubuntu 作为网关设备接入到涂鸦平台。
 
-编译生成的可执行程序位于 TuyaOS->output->tuyaos_demo_dev_<版本号> 目录下，版本号为编译时输入的版本号，配置文件也会自动拷贝到该目录下。
+编译生成的可执行程序位于 TuyaOS->output->tuyaos_demo_dev_<版本号> 目录下，版本号为编译时输入的版本号，配置文件在编译时会自动被拷贝到该目录下。
 
 ![img](https://images.tuyacn.com/fe-static/docs/img/39bbc1d5-dc46-4794-9fe6-dca9237ffe57.jpg)
 
-进入到程序所在目录 TuyaOS->output->tuyaos_demo_dev_<版本号>，运行程序 `./tuyaos_demo_dev`。
+我们上面指定的版本号是 1.0.0，所以切换到程序所在目录：`cd software/TuyaOS/output/tuyaos_demo_dev_1.0.0`。
+
+运行程序 `./tuyaos_demo_dev`。
 
 程序运行时，会在终端显示程序打印的日志。
 
