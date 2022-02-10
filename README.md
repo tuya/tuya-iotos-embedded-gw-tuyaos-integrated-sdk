@@ -1,12 +1,12 @@
-# TuyaOS All-in-One Gateway SDK
+# TuyaOS Integrated Gateway SDK
 
 [English](./README.md) | [中文](./README_zh.md)
 
 ## Overview
 
-With a component-based plug-and-play architecture, the TuyaOS all-in-one SDK helps you build an IoT-enabled gateway in a quick and easy way. A variety of component libraries allows you to flexibly implement and adjust your service offerings as the market needs change over time.
+With a component-based plug-and-play architecture, the TuyaOS integrated SDK helps you build an IoT-enabled gateway in a quick and easy way. A variety of component libraries allows you to flexibly implement and adjust your service offerings as the market needs change over time.
 
-This SDK enables you to achieve cloud connection and integrate with gateway capabilities with low code development. You can enrich your gateway product with a host of services such as infrared, control hub, Zigbee and Bluetooth Low Energy connectivity, router, relay, and Pegasus pairing.
+This SDK enables you to achieve cloud connection and integrate with gateway capabilities with low code development. You can enrich your gateway product with a host of services such as infrared, control hub, Zigbee and Bluetooth Low Energy connectivity, router, repeater, and Pegasus pairing.
 
 The components in the SDK include but are not limited to:
 
