@@ -23,8 +23,6 @@ It supports connect any sub-devices to Tuya IoT Development Platform. If your ga
 
 > *Note:* The publish SDK is only available for Ubuntu, if you want to run the SDK on your hardware, please contact us. 
 
-[Tuya Wind IDE](https://developer.tuya.com/en/docs/iot-device-dev/tuyaos-wind-ide?id=Kbfy6kfuuqqu3), an all-in-one integrated development environment, is provided to help you develop TuyaOS-based products. Install this IDE on Visual Studio Code and log in to it with the account of the [Tuya IoT Development Platform](https://iot.tuya.com/). Then, you can get the TuyaOS development framework for product development.
-
 | SDK Packages                                                 | Wired Pairing      | Wi-Fi Pairing      | Bluetooth Pairing  | BLE&MESH Gateway with ZS3L | BLE&MESH Gateway without ZS3L |
 | ------------------------------------------------------------ | ------------------ | ------------------ | ------------------ | -------------------------- | ----------------------------- |
 | [ubuntu-x64_eth-gw-com](https://images.tuyacn.com/rms-static/f70721f0-33f4-11ed-9020-89eff5bc050d-1663136272783.tar.gz?tyName=tuyaos-gw-integrated_3.5.6_ubuntu-x64_eth-gw-com_0.0.1.tar.gz) | :white_check_mark: | :x:                | :x:                | :x:                        | :x:                           |
