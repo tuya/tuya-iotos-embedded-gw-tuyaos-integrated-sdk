@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-07-01T18:33:13+08:00",
+  "id": "tuyaos-demo-blemesh",
+  "duration": 0,
+  "title": "TuyaOS 综合 SDK 蓝牙网关应用",
+  "summary": "tuyaos-gw-integrated",
+  "source": "README.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "quickstart",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "tuyaos-demo-blemesh"
+}

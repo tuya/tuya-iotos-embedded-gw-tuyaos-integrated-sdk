@@ -1,0 +1,181 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>TuyaOS 综合 SDK Zigbee 网关应用</title>
+  <link rel="stylesheet" href="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/codelab-elements.css">
+  <link rel="stylesheet" href="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/quickstart.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="tuyaos-demo-zigbee"
+                  title="TuyaOS 综合 SDK Zigbee 网关应用"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="简介" duration="0">
+        <p>本示例演示了使用 TuyaOS 综合 SDK 开发涂鸦 Zigbee 网关，搭配涂鸦网关 Zigbee 模组零代码接入涂鸦生态下所有 Zigbee 子设备，并且演示了把第三方 Zigbee 子设备接入到涂鸦生态，实现入网、控制、上报等功能。</p>
+<p>本文档旨在介绍本示例的使用，详细开发指导请参考 SDK 开发文档中的 <strong>Zigbee网关开发指南</strong>。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="准备工作" duration="0">
+        <ol type="1">
+<li>Ubuntu 开发环境。</li>
+<li><a href="https://iot.tuya.com/" target="_blank">涂鸦 IoT 平台</a> 上创建网关。</li>
+<li>涂鸦生态 Zigbee 子设备产品。</li>
+<li>涂鸦网关 Zigbee 模组。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="配置文件" duration="0">
+        <p>示例工程使用 JSON 配置文件，把可配置的参数统一放到配置文件中，配置文件如下：</p>
+<pre><code>{
+    &#34;pid&#34;: &#34;dn6an7mvbrnxgpi7&#34;,
+    &#34;uuid&#34;: &#34;tuya461dbc63aeeb991f&#34;,
+    &#34;authkey&#34;: &#34;c8X4PR4wx1gMFaQlaZu5dfgVvVRwB8Ug&#34;,
+    &#34;storage_path&#34;: &#34;./&#34;,
+    &#34;cache_path&#34;: &#34;/tmp/&#34;,
+    &#34;backup_path&#34;: &#34;./&#34;,
+    &#34;log_level&#34;: 4,
+    &#34;tuya&#34;: {
+        &#34;zigbee&#34;: {
+            &#34;dev_name&#34;: &#34;/dev/ttyS6&#34;,
+            &#34;cts&#34;: 0,
+            &#34;thread_mode&#34;: 1
+        }
+    }
+}
+</code></pre>
+<p>字段说明：</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>字段</p>
+</td><td colspan="1" rowspan="1"><p>必须</p>
+</td><td colspan="1" rowspan="1"><p>说明</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>pid</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>设备产品 ID，在 <a href="https://iot.tuya.com/" target="_blank">涂鸦 IoT 平台</a> 上创建网关产品时由平台生成。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>uuid</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>授权信息，与 authkey 为一对，必须填写自己申请的 UUID。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>authkey</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>授权信息，与 uuid 为一对，必须填写自己申请的 AUTHKEY。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>storage_path</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>存储路径，需要有可读性权限，必须以 ‘/&#39; 结束。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>cache_path</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>缓存路径，升级时下载固件保存到此目录，必须以 ‘/&#39; 结束。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>backup_path</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>备份路径 ，必须以 ‘/&#39; 结束。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>log_level</p>
+</td><td colspan="1" rowspan="1"><p>否</p>
+</td><td colspan="1" rowspan="1"><p>日志等级，默认是 debug。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya.zigbee.dev_name</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>连接 Zigbee 模组的串口设备名称，如 &#34;/dev/ttyS0&#34;。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya.zigbee.cts</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>串口是否支持硬件流控，以实际使用的模组为准，Zigbee 模组通常要求接硬件流控。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya.zigbee.thread_mode</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>0 表示以子进程方式启动 Zigbee 服务，1 表示以线程方式启动 Zigbee 服务。</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="系统适配" duration="0">
+        <p>SDK 是跨平台的设计，定义了一套标准的 TuyaOS Kernel Layer （简称 TKL）接口来屏蔽系统的差异，接口的定义在 SDK 框架开发包的 <strong>adapter</strong> 目录。系统适配接口需要由您实现，本示例代码提供了 Linux 系统通用实现，实现代码在示例工程的 <strong>tuyaos_adapter</strong> 目录。</p>
+<p>在本示例中，我们主要关注有线配网的适配接口，使用示例工程提供的通用实现，需要修改 <code>tuyaos_adapter/wired/tkl_wired.c</code> 文件，把 <strong>WIRED_IFNAME</strong> 的值修改成您使用的网络接口名称即可。</p>
+<p>注意，确保指定的网络接口跟手机在同一个局域网下，才能保证配网成功。</p>
+<p>值得注意的是，由于主控和 Zigbee 模组使用串口通讯，我们还需要实现串口的适配接口。目前通用实现中的串口适配仅支持设备名称为 <code>/dev/ttSx</code> 和 <code>/dev/ttyUSBx</code> （x 是数字，表示串口号） 这两种格式的设备名称，其他设备名称如 <code>/dev/ttyAMA</code> 等需要自行适配，串口适配文件为 <code>tuyaos_adapter/uart/tkl_uart.c</code>。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="编译运行" duration="0">
+        <p>在 IDE 上编译本项目，编译没有问题的话，会生成一个可执行程序，位于 <code>TuyaOS/output/tuyaos_demo_zigbee_<版本号></code> 目录下，版本号为编译时输入的版本号，配置文件也会自动拷贝到该目录下，切换到该目录，直接运行程序，会打印 Zigbee 的网络信息：</p>
+<pre><code>...
+[01-01 00:00:00 TUYA D][tuya_ws_db.c:450] init fs. Path: ./
+[01-01 00:00:00 TUYA I][kv_storge.c:45] Init Kvs With File:./
+[01-01 00:00:00 TUYA D][simplekv.c:928] path:./
+[01-01 00:00:00 TUYA D][simplekv.c:964] get encrypt_key[⚌⚌⚌US⚌⚌⚌⚌ykR⚌⚌]
+[01-01 00:00:00 TUYA D][simplekv.c:995] both file exist
+...
+[01-01 00:00:05 TUYA D][tuya_svc_lan.c:838] udp ip: 192.168.1.20
+...
+[01-01 00:00:08:591 TUYA N][tal_zg_slabs.c:148] nodeEuiStr = 086bd7fffed0cb51.
+[01-01 00:00:08:591 TUYA N][tal_zg_slabs.c:149] nodeId = 0x0000.
+[01-01 00:00:08:592 TUYA N][tal_zg_slabs.c:150] panId = 0x6c98.
+[01-01 00:00:08:592 TUYA N][tal_zg_slabs.c:151] channel = 0x19.
+[01-01 00:00:08:592 TUYA N][tal_zg_slabs.c:152] ver = 1.0.8.
+[01-01 00:00:08:592 TUYA N][tal_zg_slabs.c:153] netStatus = 0x02.
+[01-01 00:00:08:593 TUYA N][tal_zg_slabs.c:154] extendedPanId: bedf6a04332da2d1
+[01-01 00:00:08:593 TUYA N][tal_zg_slabs.c:155] manufacturer_code: 0x0001
+[01-01 00:00:08:593 TUYA N][tal_zg_slabs.c:157] nwk_key: bb 71 88 d1 35 a2 15 ff d5 a1 2d a2 c3 97 a2 f1
+...
+</code></pre>
+<p>程序运行后，打开智慧生活 APP，使用 <a href="https://developer.tuya.com/cn/docs/iot/user-manual-for-tuya-smart-v3177?id=K9obrofrfk4sk#title-13-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0" target="_blank">自动发现功能</a> 添加网关设备，接着添加涂鸦生态的 Zigbee 子设备。</p>
+<p>注意，配网时手机和设备要在同一个局域网。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="FAQ" duration="0">
+        <ol type="1">
+<li>如何修改 PID、UUID 和 AUTHKEY？<br>如果没有修改示例代码，修改 config.json 配置文件即可。</li>
+<li>自动发现不了网关设备？<br>确认一下手机和网关是不是在同一个局域网，网关可以通过查看日志，观察是否选择正确的网口，打印示例：<br><pre><code>[01-01 00:00:05 TUYA D][tuya_svc_lan.c:838] udp ip: 192.168.1.20
+</code></pre>
+</li>
+<li>添加不了 Zigbee 子设备？<br>如果输出日志没有显示 Zigbee 网络信息，说明串口通讯异常。检查一下硬件是否连接 Zigbee 模组，串口设备名称和硬件流控配置是否正确，串口通讯异常会有类似这样的打印输出：<br><pre><code>[01-01 00:00:18:927 TUYA D][ash-host-ui.c:441] ASH disconnected: EZSP_ASH_ERROR_RESET_FAIL
+[01-01 00:00:18:927 TUYA D][ash-host-ui.c:442] NCP status: EZSP_NO_ERROR
+</code></pre>
+</li>
+<li>使用涂鸦网关 Zigbee 模组如何扩展接入第三方私有 Zigbee 子设备？<br>参考 <code>user_zigbee_custom.c</code> 示例代码，并且参考 SDK 开发文档中的 <strong>Zigbee网关开发指南</strong>。<br></li>
+<li>本地如何获取已添加的涂鸦生态 Zigbee 子设备的数据？<br>SDK 提供了本地管理涂鸦生态 Zigbee 子设备的接口，可以获取到子设备入网、数据上报等数据，并且可以本地控制子设备，参考 <code>user_zigbee_local.c</code> 示例代码。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/native-shim.js"></script>
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/custom-elements.min.js"></script>
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/prettify.js"></script>
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

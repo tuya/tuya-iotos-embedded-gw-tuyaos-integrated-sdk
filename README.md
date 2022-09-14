@@ -4,24 +4,50 @@
 
 ## Overview
 
-With a component-based plug-and-play architecture, the TuyaOS integrated SDK helps you build an IoT-enabled gateway in a quick and easy way. A variety of component libraries allows you to flexibly implement and adjust your service offerings as the market needs change over time.
+The gateway SDK is built on top of TuyaOS for gateway device development. It enables you to connect sub-devices that use any protocols to the [Tuya IoT Development Platform](https://iot.tuya.com/), such as Zigbee, Bluetooth Low Energy, Bluetooth mesh, 433 MHz, 868 MHz, and Z-Wave. Interconnection with the Tuya ecosystem can also be achieved.
 
-This SDK enables you to achieve cloud connection and integrate with gateway capabilities with low code development. You can enrich your gateway product with a host of services such as infrared, control hub, Zigbee and Bluetooth Low Energy connectivity, router, repeater, and Pegasus pairing.
+The SDK includes a host of features and standard APIs to help you develop easily, including device pairing (over a wired connection, wireless access point (AP), or Bluetooth), upstream and downstream communication, sub-device management, local linkage, distributed-LAN gateway deployment, bulk provisioning, failover, and OTA updates.
 
-The components in the SDK include but are not limited to:
+## SDK solution
 
-- The Zigbee component that helps you enable Zigbee connectivity. It must be used in tandem with Tuya's gateway-specific Zigbee module that acts as a Zigbee network coordinator. This SDK also allows you to connect proprietary Zigbee devices to the gateway so that they can interact with `Powered by Tuya` ecosystem.
-- The Bluetooth component that helps you enable Bluetooth-based device pairing as well as interconnection with `Powered by Tuya` ecosystem. It must be used in tandem with Tuya's gateway-specific Bluetooth module.
-- The router component that helps you quickly develop a router product.
-- The basic component that helps you develop gateway products with the support for RS-433, RS-485, and Z-Wave and a suite of features like engineering mode, failover, security, local linkage, cross-gateway LAN, and more.
+It supports connect any sub-devices to Tuya IoT Development Platform. If your gateway uses **third-party modules**, it can connect the corresponding third-party sub-devices to the Tuya IoT Development Platform. If your gateway uses **Tuya standard modules**, it can connect to sub-devices of the Tuya ecosystem.
+
+- If your gateway uses **third-party modules**, its connection to sub-devices is implemented by you.
+- If your gateway uses **Tuya standard modules**, its connection to sub-devices of the Tuya ecosystem has been implemented by the SDK.
+
+<img src="https://airtake-public-data-1254153901.cos.ap-shanghai.myqcloud.com/content-platform/hestia/1650957841f23cfa05109.png" style="zoom: 50%;" />
 
 ## Quick start
 
-- [SDK for WRG2-IPEX](./WRG2-IPEX/README_zh.md)
+### Get SDK
 
-- [SDK for Ubuntu](./UBUNTU/README_zh.md)
+> *Note:* The publish SDK is only available for Ubuntu, if you want to run the SDK on your hardware, please contact us. 
 
+[Tuya Wind IDE](https://developer.tuya.com/en/docs/iot-device-dev/tuyaos-wind-ide?id=Kbfy6kfuuqqu3), an all-in-one integrated development environment, is provided to help you develop TuyaOS-based products. Install this IDE on Visual Studio Code and log in to it with the account of the [Tuya IoT Development Platform](https://iot.tuya.com/). Then, you can get the TuyaOS development framework for product development.
 
+| SDK Packages                                                 | Wired Pairing      | Wi-Fi Pairing      | Bluetooth Pairing  | BLE&MESH Gateway with ZS3L | BLE&MESH Gateway without ZS3L |
+| ------------------------------------------------------------ | ------------------ | ------------------ | ------------------ | -------------------------- | ----------------------------- |
+| [ubuntu-x64_eth-gw-com](https://images.tuyacn.com/rms-static/f70721f0-33f4-11ed-9020-89eff5bc050d-1663136272783.tar.gz?tyName=tuyaos-gw-integrated_3.5.6_ubuntu-x64_eth-gw-com_0.0.1.tar.gz) | :white_check_mark: | :x:                | :x:                | :x:                        | :x:                           |
+| [ubuntu-x64_eth-wifi-gw-com](https://images.tuyacn.com/rms-static/f708cfa0-33f4-11ed-acd5-2f6ea556a3fd-1663136272794.tar.gz?tyName=tuyaos-gw-integrated_3.5.6_ubuntu-x64_eth-wifi-gw-com_0.0.1.tar.gz) | :white_check_mark: | :white_check_mark: | :x:                | :x:                        | :x:                           |
+| [ubuntu-x64_eth-wifi-ble-gw-bt-common](https://images.tuyacn.com/rms-static/4bf6ab00-33fe-11ed-acd5-2f6ea556a3fd-1663140280752.tar.gz?tyName=tuyaos-gw-integrated_3.5.6_ubuntu-x64_eth-wifi-ble-gw-bt-common_0.0.1.tar.gz) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                        | :white_check_mark:            |
+| [ubuntu-x64_eth-wifi-ble-gw-bt-silabshost](https://images.tuyacn.com/rms-static/3fc8afe0-33fe-11ed-9020-89eff5bc050d-1663140260318.tar.gz?tyName=tuyaos-gw-integrated_3.5.6_ubuntu-x64_eth-wifi-ble-gw-bt-silabshost_0.0.1.tar.gz) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:         | :x:                           |
+
+### Compile
+
+1. Decompress the downloaded SDK and copy this repository's `apps` folder into its root directory.
+2. Run `./build_app.sh apps/tuyaos_demo_gw tuyaos_demo_gw 1.0.0`，it will compile the demo project.
+3. After compiling done, you can run the demo program on Ubuntu which is located in `output` folder.
+
+You also can read the details for those demos to know how to use them.
+
+- [tuyaos_demo_gw](./apps/tuyaos_demo_gw/README.md)
+- [tuyaos_demo_zigbee](./apps/tuyaos_demo_zigbee/README.md)
+- [tuyaos_demo_engr](./apps/tuyaos_demo_gw/README.md)
+- [tuyaos_demo_blemesh](./apps/tuyaos_demo_blemesh/README.md)
+
+### Document
+
+The SDK API Reference Manual and Development Guide are located in the `docs` folder, please check it out.
 
 ## Technical support
 

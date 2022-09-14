@@ -1,0 +1,17 @@
+{
+    "pid": "agu0blmg",
+    "uuid": "tuya461dbc63aeeb991f",
+    "authkey": "c8X4PR4wx1gMFaQlaZu5dfgVvVRwB8Ug",
+    "storage_path": "./",
+    "cache_path": "/tmp/",
+    "backup_path": "./",
+    "log_level": 4,
+    "tuya": {
+        "bt": {
+            "dev_name": "/dev/ttyS6",
+            "enable_hb": 1,
+            "scan_timeout": 60,
+            "mode": 258
+        }
+    }
+}

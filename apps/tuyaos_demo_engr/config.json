@@ -1,0 +1,17 @@
+{
+    "pid": "dn6an7mvbrnxgpi7",
+    "pid_engr": "gpy8uw1iqwooyg9j",
+    "uuid": "tuya461dbc63aeeb991f",
+    "authkey": "c8X4PR4wx1gMFaQlaZu5dfgVvVRwB8Ug",
+    "storage_path": "./",
+    "cache_path": "/tmp/",
+    "backup_path": "./",
+    "log_level": 4,
+    "tuya": {
+        "zigbee": {
+            "dev_name": "/dev/ttyS6",
+            "cts": 0,
+            "thread_mode": 1
+        }
+    }
+}

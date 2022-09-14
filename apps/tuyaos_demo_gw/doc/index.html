@@ -1,0 +1,224 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>TuyaOS 综合 SDK 网关应用</title>
+  <link rel="stylesheet" href="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/codelab-elements.css">
+  <link rel="stylesheet" href="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/quickstart.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="tuyaos-demo-gw"
+                  title="TuyaOS 综合 SDK 网关应用"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="简介" duration="0">
+        <p>本示例演示了使用 TuyaOS 综合 SDK 把网关设备接入到涂鸦 IoT 平台，并实现子设备的入网、指令控制、数据上报、OTA 等功能。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="准备工作" duration="0">
+        <ol type="1">
+<li>Ubuntu 开发环境。</li>
+<li><a href="https://iot.tuya.com/" target="_blank">涂鸦 IoT 平台</a> 上创建网关和子设备产品。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="启动流程" duration="0">
+        <p>在开始开发前，我们需要了解 SDK 的初始化流程，这里需要重点关注这几个接口的调用顺序：<code>tuya_iot_init</code>、<code>tuya_iot_set_gw_prod_info</code>、<code>tuya_iot_sdk_pre_init</code>、<code>tuya_iot_sdk_init</code> 和 <code>tuya_iot_sdk_start</code> ，必须按顺序执行。</p>
+<p>SDK 初始化流程如下图所示：</p>
+<p class="image-container"><img src="img/73d5e90f009412f1.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="文件和接口" duration="0">
+        <p>常用的头文件：</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>头文件名称</p>
+</td><td colspan="1" rowspan="1"><p>功能</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_com_api.h</p>
+</td><td colspan="1" rowspan="1"><p>封装了 IoT 通用接口，常用的有获取 SDK 信息接口、IoT 基础服务初始化接口、数据点上报接口、获取数据点属性值接口、OTA 接口等。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_sdk_api.h</p>
+</td><td colspan="1" rowspan="1"><p>封装了 SDK 接口，主要是 SDK 预初始化接口、SDK 初始化接口、SDK 启动接口等。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_gw_dp_mgr.h</p>
+</td><td colspan="1" rowspan="1"><p>提供了设备数据点管理回调注册接口，SDK -&gt; Application</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_gw_protocol_mgr_user.h</p>
+</td><td colspan="1" rowspan="1"><p>提供了子设备管理回调注册接口，SDK -&gt; Application</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>uni_log.h</p>
+</td><td colspan="1" rowspan="1"><p>封装了日志打印接口。</p>
+</td></tr>
+</table>
+<p>常用的接口：</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>接口名称</p>
+</td><td colspan="1" rowspan="1"><p>接口说明</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_init()</p>
+</td><td colspan="1" rowspan="1"><p>IoT 基础服务初始化接口，SDK 所有服务和数据都依赖该接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_set_gw_prod_info()</p>
+</td><td colspan="1" rowspan="1"><p>设置产品授权信息接口，也就是 UUID 和 AUTHKEY，必须保证一机一码。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_reg_gw_app_cb()</p>
+</td><td colspan="1" rowspan="1"><p>注册网关应用回调接口，如设备升级、设备重置、设备重启、远程获取日志等通知。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_sdk_reg_netstat_cb()</p>
+</td><td colspan="1" rowspan="1"><p>注册联网状态、有线状态、无线状态变更通知接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_sdk_pre_init()</p>
+</td><td colspan="1" rowspan="1"><p>SDK 预备初始化接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_sdk_init()</p>
+</td><td colspan="1" rowspan="1"><p>SDK 初始化接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_sdk_start()</p>
+</td><td colspan="1" rowspan="1"><p>SDK 启动接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_subdev_user_sigle_type_reg()</p>
+</td><td colspan="1" rowspan="1"><p>注册子设备管理接口，如子设备添加、移除、重置、升级、指令下发、心跳查询等通知。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_gw_user_dp_reg()</p>
+</td><td colspan="1" rowspan="1"><p>注册设备数据点管理接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>dev_report_dp_json_async()</p>
+</td><td colspan="1" rowspan="1"><p>上报 OBJ 类型数据点接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>dev_report_dp_raw_sync()</p>
+</td><td colspan="1" rowspan="1"><p>上报 RAW 类型数据点接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_set_dev_hb_cfg()</p>
+</td><td colspan="1" rowspan="1"><p>配置子设备心跳超时接口，需要在应用启动和绑定子设备时进行配置。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_fresh_dev_hb()</p>
+</td><td colspan="1" rowspan="1"><p>刷新子设备心跳，在 <code>tuya_iot_set_dev_hb_cfg</code> 接口设置的超时时间内刷新心跳，在超时时间内没调用该接口子设备则显示为离线。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_gw_bind_dev()</p>
+</td><td colspan="1" rowspan="1"><p>子设备绑定到涂鸦 IoT 平台接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_dev_traversal()</p>
+</td><td colspan="1" rowspan="1"><p>遍历所有子设备接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_upgrade_dev()</p>
+</td><td colspan="1" rowspan="1"><p>子设备升级固件下载接口。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>tuya_iot_dev_upgd_progress_rept()</p>
+</td><td colspan="1" rowspan="1"><p>子设备升级进度上报接口。</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="配置文件" duration="0">
+        <p>示例工程使用 JSON 配置文件，把可配置的参数统一放到配置文件中，配置文件如下：</p>
+<pre><code>{
+    &#34;pid&#34;: &#34;dn6an7mvbrnxgpi7&#34;,
+    &#34;uuid&#34;: &#34;tuya461dbc63aeeb991f&#34;,
+    &#34;authkey&#34;: &#34;c8X4PR4wx1gMFaQlaZu5dfgVvVRwB8Ug&#34;,
+    &#34;storage_path&#34;: &#34;./&#34;,
+    &#34;log_level&#34;: 4
+}
+</code></pre>
+<p>字段说明：</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>字段</p>
+</td><td colspan="1" rowspan="1"><p>必须</p>
+</td><td colspan="1" rowspan="1"><p>说明</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>pid</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>设备产品 ID，在 <a href="https://iot.tuya.com/" target="_blank">涂鸦 IoT 平台</a> 上创建网关产品时由平台生成。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>uuid</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>授权信息，与 authkey 为一对，必须填写自己申请的 UUID。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>authkey</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>授权信息，与 uuid 为一对，必须填写自己申请的 AUTHKEY。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>log_level</p>
+</td><td colspan="1" rowspan="1"><p>否</p>
+</td><td colspan="1" rowspan="1"><p>日志等级，默认是 debug。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>storage_path</p>
+</td><td colspan="1" rowspan="1"><p>是</p>
+</td><td colspan="1" rowspan="1"><p>存储路径，需要有可读性权限，必须以 ‘/&#39; 结束。</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="系统适配" duration="0">
+        <p>SDK 是跨平台的设计，定义了一套标准的 TuyaOS Kernel Layer （简称 TKL）接口来屏蔽系统的差异，接口的定义在 SDK 框架开发包的 <strong>adapter</strong> 目录。系统适配接口需要由您实现，本示例代码提供了 Linux 系统通用实现，实现代码在示例工程的 <strong>tuyaos_adapter</strong> 目录。</p>
+<p>在本示例中，我们主要关注有线配网的适配接口，使用示例工程提供的通用实现，需要修改 <code>tuyaos_adapter/wired/tkl_wired.c</code> 文件，把 <strong>WIRED_IFNAME</strong> 的值修改成您使用的网络接口名称即可。</p>
+<p>注意，确保指定的网络接口跟手机在同一个局域网下，才能保证配网成功。</p>
+<p>详细开发指导请参考 SDK 开发文档中的 <strong>配网指导</strong>。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="编译运行" duration="0">
+        <p>在 IDE 上编译本项目，编译没有问题的话，会生成一个可执行程序，位于 <code>TuyaOS/output/tuyaos_demo_gw_<版本号></code> 目录下，版本号为编译时输入的版本号，配置文件也会自动拷贝到该目录下，切换到该目录，直接运行程序即可，会看到类似如下的打印信息：</p>
+<pre><code>...
+[01-01 00:00:00 TUYA D][tuya_ws_db.c:450] init fs. Path: ./
+[01-01 00:00:00 TUYA I][kv_storge.c:45] Init Kvs With File:./
+[01-01 00:00:00 TUYA D][simplekv.c:928] path:./
+[01-01 00:00:00 TUYA D][simplekv.c:964] get encrypt_key[⚌⚌⚌US⚌⚌⚌⚌ykR⚌⚌]
+[01-01 00:00:00 TUYA D][simplekv.c:995] both file exist
+...
+[01-01 00:00:05 TUYA D][tuya_svc_lan.c:838] udp ip: 192.168.1.20
+...
+</code></pre>
+<p>程序运行后，打开智慧生活 APP，使用 <a href="https://developer.tuya.com/cn/docs/iot/user-manual-for-tuya-smart-v3177?id=K9obrofrfk4sk#title-13-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0" target="_blank">自动发现功能</a> 添加网关设备。</p>
+<p>注意，配网时手机和设备要在同一个局域网。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="FAQ" duration="0">
+        <ol type="1">
+<li>如何修改 PID、UUID 和 AUTHKEY？<br>如果没有修改示例代码，修改 config.json 配置文件即可。</li>
+<li>自动发现不了网关设备？<br>确认一下手机和网关是不是在同一个局域网，网关可以通过查看日志，观察是否选择正确的网口，打印示例：<br><pre><code>[01-01 00:00:05 TUYA D][tuya_svc_lan.c:838] udp ip: 192.168.1.20
+</code></pre>
+</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/native-shim.js"></script>
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/custom-elements.min.js"></script>
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/prettify.js"></script>
+  <script src="https://images.tuyacn.com/smart/embed/package/vscode/tool-claat/js/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-07-07T15:15:33+08:00",
+  "id": "tuyaos-demo-engr",
+  "duration": 0,
+  "title": "TuyaOS 综合 SDK 施工模式应用",
+  "summary": "tuyaos-gw-integrated",
+  "source": "README.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "quickstart",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "tuyaos-demo-engr"
+}
